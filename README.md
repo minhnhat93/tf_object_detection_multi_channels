@@ -233,6 +233,10 @@ In the exporter.py file, look for function _image_tensor_input_placeholder().
 Change the shape of the returned place holder to (None, None, None, num_input_channels).
 For tf_example input, you don't need to specify this shape.
 
+## Config file:
+
+In the config file, make sure to add the num_input_channels under the faster_rcnn message.
+
 ## Transfer learning:
 
 Because the shape of the first convolution weight in the feature extractor
