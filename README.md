@@ -240,9 +240,11 @@ For tf_example input, you don't need to specify this shape.
 ## Transfer learning:
 
 Because the shape of the first convolution weight in the feature extractor
-has changed, you cannot use provided checkpoint for the original repository
+has changed, you cannot use provided checkpoint in the original repository
 to do transfer learning. You must modify those checkpoints so that the shape
 of the first convolution weight match your model. It's quite easy to do this.
 Bascially, you want to load all the weights of the checkpoint into memory as numpy array,
 look for the first convolution weight, change it, create tf.Variable for
 all the weights using the new shapes and save it back as a new checkpoint.
+A good reference would be this file from TensorFlow python tools:
+https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/tools/inspect_checkpoint.py
