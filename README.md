@@ -35,7 +35,7 @@ do this is the same when you store image width and height.
 
     tf_example = tf.train.Example(features=tf.train.Features(feature={
     ...
-        'image/channels': tf.FixedLenFeature((), tf.int64, 1),
+        'image/channels': dataset_util.int64_feature(len(input_types) * 3),
         'image/encoded': dataset_util.bytes_feature(encoded_inputs),
     ...
       }))
@@ -58,7 +58,11 @@ First, in the class TFExampleDecoder, add this function to read your input:
 This function reshapes your encoded input to a 3D array using the number of channels information
 that you stored earlier
 
-Now, in the __init__ function of the same class, change the item_to_handler of your encoded image at this line:
+Now, in the __init__ function of the same class, in self.keys_to_features dictionary (https://github.com/tensorflow/models/blob/2243d30cd9be6a57f8f23d398d702a3ff7aacf11/object_detection/data_decoders/tf_example_decoder.py#L34), add this line:
+    
+    'image/channels': tf.FixedLenFeature((), tf.int64, 1),
+
+Additionally, change the item_to_handler of your encoded image at this line:
 https://github.com/tensorflow/models/blob/2243d30cd9be6a57f8f23d398d702a3ff7aacf11/object_detection/data_decoders/tf_example_decoder.py#L56
 
 to this:
